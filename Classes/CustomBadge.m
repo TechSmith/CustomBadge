@@ -233,7 +233,6 @@
 	}
 	
 	if ([self.badgeText length]>0) {
-		[badgeTextColor set];
 		CGFloat sizeOfFont = 13.5*badgeScaleFactor;
 		if ([self.badgeText length]<2) {
 			sizeOfFont += sizeOfFont*0.20;
@@ -243,10 +242,12 @@
       CGSize textSize = CGSizeZero;
       
 #if defined(__IPHONE_7_0)
-      NSDictionary* attributes = @{NSFontAttributeName: textFont};
+      NSDictionary* attributes = @{NSFontAttributeName: textFont, NSForegroundColorAttributeName: badgeTextColor};
       textSize = [self.badgeText sizeWithAttributes:attributes];
       [self.badgeText drawAtPoint:CGPointMake((rect.size.width/2-textSize.width/2), (rect.size.height/2-textSize.height/2)) withAttributes:attributes];
 #else
+      [badgeTextColor set];
+      
       textSize = [self.badgeText sizeWithFont:textFont];
       
       [self.badgeText drawAtPoint:CGPointMake((rect.size.width/2-textSize.width/2), (rect.size.height/2-textSize.height/2)) withFont:textFont];
